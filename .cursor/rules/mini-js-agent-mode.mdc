@@ -1,0 +1,13 @@
+---
+description: Keep NOTES.md synced with code changes
+alwaysApply: true
+---
+
+# mini-js notes sync rule
+
+## What to do
+
+- When the user changes/adds code (HTML/CSS/JS) and asks for notes, update `NOTES.md` to match.
+- Explain **new things the first time** they appear; keep repeats shorter.
+- Don’t add tutorial comments inside code files unless the user asks.
+
