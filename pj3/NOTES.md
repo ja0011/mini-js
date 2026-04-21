@@ -1,20 +1,73 @@
 # Notes — Random quote generator (`pj3`)
 
-**Open the `pj3` folder** (*File → Open Folder…* → `mini-js/pj3`) when you work here. Preview **`index.html`** with Live Server or from disk.
+**Open the `pj3` folder** (*File → Open Folder…* → `mini-js/pj3`) when you work here.
 
-There is no separate CSS file yet; styling is all browser defaults.
+Preview **`index.html`** with Live Server or from disk.
+
+There is **no** separate CSS file yet — styling is whatever the browser defaults to.
+
+---
 
 ## `index.html` (explained)
 
-- **`<title>`:** text on the browser tab (“Random Quote Generator”).
-- **`<h1>`:** main heading on the page.
-- **`<p id="quote"></p>`:** empty paragraph at first; JavaScript will fill it with the chosen quote. **`id="quote"`** matches `document.getElementById("quote")` in `index.js`.
-- **`<button onclick="generateQuote()">`:** click calls **`generateQuote()`** from `index.js`.
-- **`<script src="index.js"></script>`** at the end of `<body>`: loads the script after the paragraph and button exist.
+### Hooks for JavaScript
 
-**On first load** the quote area stays empty until you click **Generate Quote** (nothing calls `generateQuote()` automatically yet).
+- **`id="quote"`** — stable name so **`document.getElementById("quote")`** can find this paragraph in **`index.js`**.
+- **`<script src="index.js">`** — loads JS from the **same folder** as this HTML file.
 
-Current file:
+### Visible structure
+
+- **`<title>`** — browser tab text.
+- **`<h1>`** — main heading on the page.
+- **`<p id="quote"></p>`** — starts **empty**; JS fills it when you click the button.
+- **`<button onclick="generateQuote()">`** — calls **`generateQuote()`** in **`index.js`**.
+
+### First paint
+
+On first load, the quote area stays **empty** until you click **Generate Quote** (nothing calls **`generateQuote()`** automatically yet).
+
+---
+
+## `index.js` (explained)
+
+### Vocabulary — arrays and `const`
+
+- **`const quotes = [ … ]`** — **`const`** plus an **array literal** **`[ ]`**. Ordered list: **`quotes[0]`**, **`quotes[1]`**, … and **`quotes.length`**.
+
+### Vocabulary — `Set`
+
+- **`const usedIndexes = new Set()`** — a **Set** holds **unique** values (here: indexes you already showed).
+- Useful methods: **`.add`**, **`.has`**, **`.clear`**, and **`.size`**.
+
+### Vocabulary — DOM reference
+
+- **`const quoteElement = document.getElementById("quote")`** — grab the **`<p>`** once so you can update its text later.
+
+### Vocabulary — `function`, `if`, loop control
+
+- **`function generateQuote() { … }`** — no parameters; the button’s **`onclick`** calls it.
+- **`if (condition) { … }`** — run the block only when **condition** is true.
+- **`while (true) { … }`** — repeat until something inside stops the loop (**`break`** here).
+- **`continue`** — skip to the **next** loop iteration (try another random index).
+
+### Vocabulary — random index
+
+- **`Math.random()`** — in **[0, 1)**.
+- **`* quotes.length`** then **`Math.floor(...)`** — integer index in **0 … length − 1**.
+
+### Vocabulary — putting text on the page
+
+- **`quoteElement.innerHTML = quote`** — treats the string as **HTML**. For **plain text only**, **`textContent`** is often safer.
+
+### What this file does (flow)
+
+1. **`quotes`** — list of possible strings (two entries repeat the same Steve Jobs line, so **length is 3** with only two unique sentences).
+2. **`usedIndexes`** — remembers which **indexes** were already used.
+3. **`generateQuote()`** — if all indexes were used, **`clear()`** the set. Loop: random index not in set → show **`quotes[randomIdx]`** → **`add`** index → **`break`**.
+
+---
+
+### Current file: `index.html`
 
 ```html
 <!DOCTYPE html>
@@ -36,19 +89,7 @@ Current file:
 </html>
 ```
 
-## `index.js` (explained)
-
-- **`quotes`:** an array of strings; each string is one possible quote. Two entries repeat the same Steve Jobs line, so **`quotes.length` is 3** even though only two distinct sentences appear.
-- **`usedIndexes`:** a **`Set`** of array indexes already shown; avoids repeating the same index until all have been used.
-- **`quoteElement`:** reference to the `<p id="quote">` node.
-- **`generateQuote()`:**
-  - If every index has been used (`usedIndexes.size >= quotes.length`), **`usedIndexes.clear()`** starts the rotation over.
-  - **`while (true)`** loop: pick **`randomIdx`** with **`Math.floor(Math.random() * quotes.length)`**; if that index is already in the set, **`continue`** and try again.
-  - Otherwise read **`quotes[randomIdx]`**, put it in the page with **`quoteElement.innerHTML = quote`**, **`add`** the index to the set, and **`break`** out of the loop.
-
-**Note:** For plain text, **`textContent`** is often preferred over **`innerHTML`** (avoids accidental HTML if a quote ever contained `<` characters). Your quotes are safe as-is.
-
-Current file:
+### Current file: `index.js`
 
 ```js
 const quotes = [

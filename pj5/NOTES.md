@@ -1,19 +1,89 @@
 # Notes — TODO list (`pj5`)
 
-**Open the `pj5` folder** (*File → Open Folder…* → `mini-js/pj5`) when you work here. Preview **`index.html`** with Live Server or from disk.
+**Open the `pj5` folder** (*File → Open Folder…* → `mini-js/pj5`) when you work here.
 
-`index.html` loads **`index.js`** from the same folder (`pj5/index.js`).
+Preview **`index.html`** with Live Server or from disk.
+
+**`index.html`** loads **`index.js`** from the **same folder** (`pj5/index.js`).
 
 ---
 
 ## `index.html` (explained)
 
-- **`<div id="items">`:** empty at first; JavaScript fills it with one row per todo (each row is a small **`div`** with text + Delete).
-- **`<input id="itemInput">`:** where the user types a new item; **`addItem()`** reads **`input.value`**.
-- **`<button onclick="addItem()">Add</button>`:** runs **`addItem()`** from `index.js`.
-- **`<script src="index.js"></script>`** at the end of `<body>` so **`#items`** and **`#itemInput`** exist before the script runs.
+### IDs the script relies on
 
-Current file:
+- **`id="items"`** and **`id="itemInput"`** — used with **`getElementById`** in **`index.js`**.
+- IDs should be **unique** on the page.
+
+### Layout
+
+- **`<div id="items">`** — starts empty. JS adds one **row** per todo (a small **`div`** with text + Delete).
+- **`<input id="itemInput">`** — where the user types a new item.
+- **`<button onclick="addItem()">Add</button>`** — runs **`addItem()`** from **`index.js`**.
+- **`<script src="index.js"></script>`** at the **end** of **`<body>`** — **`#items`** and **`#itemInput`** exist before the script runs.
+
+---
+
+## `index.js` (explained)
+
+### Vocabulary — `let` and `const`
+
+- **`let items = []`** — **`let`** because **`items`** is reassigned or mutated (**`push`**, **`splice`**, load from **`JSON.parse`**). **`[]`** is an empty array.
+
+- **`const itemsDiv`**, **`const input`**, **`const storageKey`** — **`const`** for bindings that stay the **same** (DOM references and the storage key string).
+
+### Vocabulary — named functions
+
+- **`function renderItems() { … }`** — rebuilds the list under **`#items`**. No **`return`**; it changes the **DOM** as a **side effect**.
+
+### Vocabulary — looping with `Object.entries`
+
+- **`for (const [idx, item] of Object.entries(items))`** — **`Object.entries`** yields **`[key, value]`** pairs. For arrays, keys are **`"0"`**, **`"1"`**, … (strings).
+- **`for … of`** walks each pair. **`const [idx, item]`** splits each pair into two variables (**destructuring**).
+
+### Vocabulary — creating elements
+
+- **`document.createElement("div")`** — makes a **new** node; **`appendChild`** attaches it under a parent.
+
+### Vocabulary — safe text vs HTML
+
+- **`text.textContent = item`** — plain text only (good for user input).
+
+### Vocabulary — click handlers and arrow functions
+
+- **`button.onclick = () => removeItem(Number(idx))`** — **`() => …`** is an **arrow function** (short anonymous function).
+- **`Number(idx)`** — **`Object.entries`** keys are strings; **`splice`** expects a numeric index.
+
+### Vocabulary — clearing the list UI
+
+- **`itemsDiv.innerHTML = null`** — wipes old rows before re-rendering. ( **`replaceChildren()`** is another option.)
+
+### Vocabulary — early exit
+
+- **`if (!value) { … return }`** — **`return`** stops **`addItem`** immediately when the input is empty.
+
+### Vocabulary — persistence
+
+- **`localStorage`** — stores **strings** in the browser for this origin.
+- **`JSON.stringify(items)`** / **`JSON.parse(...)`** — array ↔ string.
+
+### Vocabulary — waiting for the DOM
+
+- **`document.addEventListener("DOMContentLoaded", loadItems)`** — run **`loadItems`** once the HTML is parsed so **`getElementById`** succeeds.
+
+### What this file does (short map)
+
+| Function        | Role                                      |
+|----------------|-------------------------------------------|
+| **`renderItems`** | Clear **`#items`**, draw every todo row   |
+| **`loadItems`**   | Read **`localStorage`**, then render      |
+| **`saveItems`**   | Write **`items`** as JSON to storage      |
+| **`addItem`**     | Validate, push, render, clear input, save |
+| **`removeItem`**  | **`splice`** one index, render, save        |
+
+---
+
+### Current file: `index.html`
 
 ```html
 <!DOCTYPE html>
@@ -37,23 +107,7 @@ Current file:
 </html>
 ```
 
----
-
-## `index.js` (explained)
-
-- **`items`:** array of todo strings; starts **`[]`** and is repopulated from **`localStorage`** on load.
-- **`itemsDiv` / `input`:** references to **`#items`** and **`#itemInput`**.
-- **`storageKey`:** name under which the list is saved in **`localStorage`** (`"items"`).
-- **`renderItems()`:** clears **`itemsDiv`**, loops **`Object.entries(items)`**, and for each entry builds a **`div`** containing a **`p`** (the text) and a **Delete** button whose **`onclick`** should call **`removeItem(idx)`** with that row’s index.
-- **`loadItems()`:** reads **`localStorage.getItem(storageKey)`**; if present, **`JSON.parse`** into **`items`**, then **`renderItems()`**. Registered on **`DOMContentLoaded`** at the bottom so the DOM is ready before **`getElementById`** runs.
-- **`saveItems()`:** **`JSON.stringify(items)`** and **`localStorage.setItem`** so changes survive refresh.
-- **`addItem()`:** trims empty adds with **`alert`**; otherwise **`push`**es the string, **`renderItems()`**, clears the input, **`saveItems()`**.
-- **`removeItem(idx)`:** **`splice(idx, 1)`** removes one element at that index, then re-renders and saves.
-
-**Syntax issue in the current file (line 25):**  
-`button.onclick = () => removeItem(idx) ()` has an **extra `()`** at the end, which is invalid JavaScript and will stop the whole script from loading. It should be something like **`button.onclick = () => removeItem(Number(idx))`** (because **`Object.entries`** gives string keys **`"0"`**, **`"1"`**, and **`splice`** expects a number).
-
-Current file:
+### Current file: `index.js`
 
 ```js
 let items = [];
@@ -80,7 +134,7 @@ function renderItems(){
 
         const button =document.createElement("button")
         button.textContent = "Delete"
-        button.onclick = () =>removeItem(idx)  ()
+        button.onclick = () => removeItem(Number(idx))
 
         container.appendChild(text)
         container.appendChild(button)

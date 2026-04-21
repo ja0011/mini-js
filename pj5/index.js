@@ -22,7 +22,7 @@ function renderItems(){
 
         const button =document.createElement("button")
         button.textContent = "Delete"
-        button.onclick = () =>removeItem(idx)  ()
+        button.onclick = () => removeItem(Number(idx))
 
         container.appendChild(text)
         container.appendChild(button)

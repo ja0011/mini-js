@@ -1,27 +1,112 @@
 # Notes (explanations for this project)
 
-**This app lives in the `pj1` folder.** Open **`pj1`** as your Cursor folder (*File → Open Folder…* → `mini-js/pj1`) so paths like `main.html` match what you edit and preview. In a browser, open `pj1/main.html` (not a missing `mini-js/main.html` at the parent).
+**This app lives in the `pj1` folder.** Open **`pj1`** as your Cursor folder (*File → Open Folder…* → `mini-js/pj1`) so paths like `main.html` match what you edit and preview.
 
-Open this file when you want explanations. Keep `main.html` / `index.js` clean.
+In a browser, open **`pj1/main.html`** (not a missing `mini-js/main.html` at the parent).
+
+Keep **`main.html`** / **`index.js`** free of long tutorial comments unless you want them there — explanations live in this file.
+
+---
 
 ## `main.html` (explained)
 
-- `<!DOCTYPE html>`: tells the browser this is HTML5
-- `<html lang="en">`: page starts; says the page language is English
-- `<link rel="stylesheet" href="style.css">`: loads the separate CSS file so those rules apply to this page (conventionally this tag lives inside `<head>`; browsers still usually apply it)
-- `<head>`: setup area (not shown on the page)
-- `<meta charset="UTF-8">`: how text is stored/shown (UTF‑8)
-- `<meta name="viewport" ...>`: makes the page fit/scale on phones
-- `<title>`: text on the browser tab
-- `</head>`: head ends
-- `<body>`: visible page content starts
-- `<h3>`: smaller heading (section title)
-- `<button id="green" onclick="setColor('green')">`: clickable button; **`id`** is for CSS; **`onclick="..."`** runs a bit of JavaScript when clicked (here it calls `setColor` with a color name string)
-- Same idea for red/blue; Random uses `onclick="randomColor('random')"` (the extra string is ignored by your `randomColor` function, which takes no parameters)
-- `<script src="index.js"></script>`: loads and runs `index.js` (usually placed near the end of `<body>` so the HTML exists before the script runs)
-- `</body>` / `</html>`: close the visible page and the document
+### How this file fits together
 
-Current file:
+- This file is **HTML** (structure and content), not JavaScript.
+- **`<script src="index.js">`** tells the browser to load your **separate** JS file and run it. The two languages work together from two files.
+
+### Connecting clicks to JavaScript
+
+- **`onclick="setColor('green')"`** is an **HTML attribute**.
+- When the user clicks, the browser looks for a **global** function named **`setColor`** and **calls** it.
+- The text **`'green'`** inside the parentheses is an **argument** — it becomes the **`name`** parameter inside **`setColor`** in `index.js`.
+
+### Tags on this page (quick reference)
+
+- **`<!DOCTYPE html>`** — marks the document as HTML5.
+- **`<html lang="en">`** — starts the page; **`lang`** hints language for accessibility and search engines.
+- **`<link rel="stylesheet" href="style.css">`** — loads your CSS file (often placed inside **`<head>`**; browsers still usually apply it).
+- **`<head>…</head>`** — metadata and links; not the visible page body.
+- **`<meta charset="UTF-8">`** — text encoding.
+- **`<meta name="viewport" …>`** — better scaling on phones.
+- **`<title>`** — text on the browser tab.
+- **`<body>…</body>`** — what the user actually sees.
+
+### Buttons and script placement
+
+- **`<h3>`** — section title (“Color Flipper”).
+- **`<button id="green" …>`** — a button. **`id="green"`** links it to the **`#green`** rule in **`style.css`**. Red / blue / random use their own **`id`** values the same way.
+- **Random:** **`onclick="randomColor('random')"`** calls **`randomColor`**. That function takes **no parameters**, so the **`'random'`** string is ignored — it is harmless leftover text.
+- **`<script src="index.js"></script>`** — placed **near the end of `<body>`** so the buttons already exist before the script runs.
+
+---
+
+## `style.css` (explained)
+
+### Big picture
+
+- Rules here apply because **`main.html`** links this file with **`<link rel="stylesheet" href="style.css">`**.
+
+### How a rule is written
+
+- Shape: **`selector { property: value; }`**
+- **Selector** — *which* elements get the style.
+- **`property: value`** — *what* changes (color, size, spacing, etc.).
+
+### Selectors used here
+
+- **`#green`** — **ID selector**; targets the element whose **`id`** is **`green`** (here: the green button’s background).
+- Same idea for **`#red`**, **`#blue`**, **`#random`**.
+- **`button { … }`** — targets **every** `<button>` (shared size, margin, rounded corners).
+
+### Properties to notice
+
+- **`background-color`** — fills the element’s background with a color.
+- **`#random`** uses **`random`** as a color — that is **not** a valid CSS color name, so the browser may **ignore** that rule. Prefer **`gray`**, a **hex** value, or **`hsl(...)`**.
+
+---
+
+## `index.js` (explained)
+
+### Vocabulary — comments and variables
+
+- **`// …`** — a **comment**. The browser skips it; only people reading the code see it.
+- **`const body = …`** — **`const`** declares a **named variable** you do **not** plan to reassign with **`=`** later.
+- The **right-hand side** of **`=`** runs first; its result is stored in **`body`**.
+
+### Vocabulary — the `document` object
+
+- **`document`** — built-in object for the **loaded page**.
+- **`document.getElementsByTagName('body')`** — returns a **list-like collection** of every `<body>` (almost always one).
+- **`[0]`** — “give me the **first** item” from that collection.
+
+### Vocabulary — `function`, parameters, calls
+
+- **`function setColor(name) { … }`** — **`function`** **defines** reusable code named **`setColor`**.
+- **`name`** — a **parameter** (placeholder). The **caller** fills it in (e.g. **`onclick="setColor('green')"`** → **`name`** is **`'green'`**).
+- **`{ … }`** — the **body** of the function; runs **each time** the function is **called**.
+- **`function randomColor() { … }`** — **no parameters**; empty **`()`** means nothing is passed in.
+- **`randomColor()`** at the **bottom** of the file — a **call** that runs **once** when the script loads, so the background starts random.
+
+### Vocabulary — changing how something looks
+
+- **`body.style.backgroundColor`** — **`body`** is an **element object**. **`.style`** is its inline-style object. **`.backgroundColor`** is one CSS property you can assign a string to.
+
+### Vocabulary — random RGB and template strings
+
+- **`Math.random()`** — decimal in **[0, 1)**.
+- **`* 255`** then **`Math.round(...)`** — stretch and round to a whole number for an **RGB** channel.
+- **`` const color = `rgb(${red}, ${green}, ${blue})` ``** — **template literal** (backticks). **`${…}`** inserts a value into the string.
+
+### What each piece does in *this* file
+
+1. **`const body = document.getElementsByTagName('body')[0]`** — save the `<body>` element so you can recolor the page later.
+2. **`setColor(name)`** — set **`body.style.backgroundColor`** to **`name`** (e.g. **`'red'`**).
+3. **`randomColor()`** — pick three channels, build **`rgb(...)`**, assign to **`body.style.backgroundColor`**.
+
+---
+
+### Current file: `main.html`
 
 ```html
 <!DOCTYPE html>
@@ -47,16 +132,7 @@ Current file:
 </html>
 ```
 
-## `style.css` (explained)
-
-- **Separate file:** rules here apply because `main.html` links this file with `<link rel="stylesheet" href="style.css">`.
-- **`#green`:** “ID selector” — styles the element whose `id` is `green` (the Green button background).
-- Same pattern for `#red`, `#blue`, `#random`.
-- **`background-color`:** fills the element’s background with that color.
-- **`random` as a color:** not a valid CSS color keyword, so that rule may be ignored by the browser; use something like `gray`, a hex value (`#808080`), or `hsl(...)`.
-- **`button { ... }`:** styles **all** `<button>` elements — here: rounded corners (`border-radius`), fixed `width` / `height`, and `margin` spacing between them.
-
-Current file:
+### Current file: `style.css`
 
 ```css
 
@@ -81,14 +157,7 @@ button{
 }
 ```
 
-## `index.js` (explained)
-
-- **`document.getElementsByTagName('body')[0]`:** finds every `<body>` in the page and takes the first one; stored in `body` so you can change the page background later.
-- **`setColor(name)`:** sets `body.style.backgroundColor` to the string you pass (e.g. `'green'` works because it is a valid CSS color name).
-- **`randomColor()`:** builds three random integers 0–255, plugs them into an **`rgb(r, g, b)`** string, then assigns that to `body.style.backgroundColor`.
-- **`randomColor()` at the bottom of the file:** runs once when the script loads, so the page starts with a random background before you click anything.
-
-Current file:
+### Current file: `index.js`
 
 ```js
 // (notes are in NOTES.md)

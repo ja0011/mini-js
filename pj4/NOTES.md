@@ -1,18 +1,69 @@
 # Notes — Stop watch (`pj4`)
 
-**Open the `pj4` folder** (*File → Open Folder…* → `mini-js/pj4`) when you work here. Preview **`index.html`** with Live Server or from disk.
+**Open the `pj4` folder** (*File → Open Folder…* → `mini-js/pj4`) when you work here.
 
-No CSS file; layout and styling are browser defaults.
+Preview **`index.html`** with Live Server or from disk.
+
+No CSS file — layout is browser defaults.
+
+---
 
 ## `index.html` (explained)
 
-- **`<title>`:** browser tab text (“Stop Watch”).
-- **`<h3>` / `<h1>`:** subtitle and large time readout.
-- **`<h1 id="time">00:00</h1>`:** starting display; **`id="time"`** is what `index.js` updates every second.
-- **Three buttons:** **`onclick`** calls **`startClock()`**, **`stopClock()`**, and **`resetClock()`** from `index.js`.
-- **`<script src="index.js"></script>`** at the end of `<body>` so the `#time` element exists before the script runs.
+### Buttons and the clock
 
-Current file:
+- **`id="time"`** — the big clock readout; **`index.js`** updates this element every second.
+- **`onclick="startClock()"`** (and Stop / Reset) — each calls a **global function** of the same name in **`index.js`**.
+
+### Script order
+
+- **`<script src="index.js"></script>`** at the **end** of **`<body>`** — ensures **`#time`** exists before the script runs.
+
+---
+
+## `index.js` (explained)
+
+### Vocabulary — `let` vs `const`
+
+- **`let secondsElasped = 0`** — **`let`** = “this variable **may** be reassigned” (here: **`++`** every tick, reset to **0** on reset). **`const`** would **not** allow that.
+
+  *(Name is spelled **“Elasped”** instead of “Elapsed” — harmless for running, easy to mistype later.)*
+
+- **`let interval = null`** — holds the **timer id** from **`setInterval`**, or **`null`** when no timer is running. **`null`** means “no value.”
+
+- **`const time = document.getElementById("time")`** — **`const`** is OK because **`time`** always points at the **same** DOM node; you only change **properties** like **`.innerHTML`**, not **`time`** itself.
+
+### Vocabulary — functions that return vs side effects
+
+- **`function padStart(value) { return … }`** — **`return`** sends a value back to the caller.
+- **`String(value).padStart(2, "0")`** — number → string, pad on the left to length **2**.
+
+- **`function setTime() { … }`** — no **`return`**; it **updates the page** by assigning **`time.innerHTML`**.
+
+### Vocabulary — math on the clock
+
+- **`Math.floor(x)`** — round **down** to an integer.
+- **`%`** — remainder (**65 % 60** → **5** seconds).
+
+### Vocabulary — timers
+
+- **`setInterval(fn, ms)`** — call **`fn`** about every **`ms`** milliseconds. Returns an **id**.
+- **`clearInterval(interval)`** — stop that repeating timer.
+
+### What this file does (flow)
+
+1. **`secondsElasped`** — total whole seconds counted.
+2. **`setTime()`** — minutes + seconds → **`MM:SS`** on **`#time`**.
+3. **`timer()`** — add one second, refresh display (**`setInterval`** calls this).
+4. **`startClock()`** — if already running, **`stopClock()`** first; then **`setInterval(timer, 1000)`**.
+5. **`stopClock()`** — **`clearInterval(interval)`** (optional: set **`interval = null`** after).
+6. **`resetClock()`** — stop, set count to **0**, **`setTime()`** again.
+
+**Optional polish:** use **`textContent`** instead of **`innerHTML`** for the clock (digits are plain text, not HTML).
+
+---
+
+### Current file: `index.html`
 
 ```html
 <!DOCTYPE html>
@@ -36,19 +87,7 @@ Current file:
 </html>
 ```
 
-## `index.js` (explained)
-
-- **`secondsElasped`:** total whole seconds counted (name is spelled **“Elasped”** instead of “Elapsed” — harmless for running, but easy to mistype later).
-- **`interval`:** holds the timer id returned by **`setInterval`**, or **`null`** before the first start.
-- **`time`:** reference to the DOM node **`#time`**.
-- **`padStart(value)`:** turns a number into a string and pads with **`"0"`** on the left to length **2** (via **`String.prototype.padStart`**) so minutes/seconds show as **`01`**, **`09`**, etc.
-- **`setTime()`:** converts **`secondsElasped`** into **`minutes`** (`Math.floor(seconds / 60)`) and **`seconds`** (`% 60`), then sets **`time.innerHTML`** to **`MM:SS`**.
-- **`timer()`:** increments **`secondsElasped`** by 1 and calls **`setTime()`** — this is the function **`setInterval`** runs every second.
-- **`startClock()`:** if an interval is already running, calls **`stopClock()`** first; then **`setInterval(timer, 1000)`** runs **`timer`** about once per second (1000 ms).
-- **`stopClock()`:** **`clearInterval(interval)`** stops the ticking (does not set **`interval = null`** here; the variable may still hold the old id, which is usually fine after **`clearInterval`**).
-- **`resetClock()`:** stops the clock, sets **`secondsElasped`** back to **0**, and refreshes the display with **`setTime()`**.
-
-Current file:
+### Current file: `index.js`
 
 ```js
 let secondsElasped = 0;
@@ -91,5 +130,3 @@ function resetClock(){
 
 }
 ```
-
-**Optional polish:** after **`clearInterval`**, set **`interval = null`** so “is the timer running?” stays clear; use **`textContent`** instead of **`innerHTML`** for the clock digits (no HTML inside the time string).
