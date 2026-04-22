@@ -8,7 +8,17 @@
         border-radius: 2px;
         cursor: pointer;
         margin-right: 8px;
+        transition: opacity .15s;/*makes the fade in smoothly */
 
+    }
+
+    .subscribe-button:hover {
+        opacity:.5; /* only goes from 0 to 1 | used for transparancy */
+        background-color: green;
+    }
+    .subscribe-button:active {
+        opacity: .3;
+        background-color:blue;
     }
 
     .join-button{
@@ -21,6 +31,14 @@
         width: 62px;
         border-radius: 2px;
         cursor: pointer;
+        transition: background-color .15s, color .15s;/* add multi to fade trans smoothly */
+    }
+    .join-button:hover{ /*when u go over the button */
+        background-color: rgb(41, 118, 211);
+        color: white;
+    }
+    .join-button:active{/* when u click the button */
+        opacity: .7;
     }
 
     .tweet-button{
@@ -34,7 +52,12 @@
         font-size: 15px;
         margin-left: 8px;
         cursor: pointer;
+        transition: box-shadow .15s
 
+    }
+    .tweet-button:hover{
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);/*right, down, blur, rgba = makes fade */
+        
 
     }
     
