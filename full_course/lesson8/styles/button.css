@@ -1,0 +1,77 @@
+.subscribe-button {
+    background-color: rgb(200, 0, 0);/* */
+    color: white;/* */
+    border: none;/* */
+    margin-right: 8px;/*addes space to right of button */
+    margin-left: 20px;/*addes space to left of button */
+    /* 
+    height: 50px; height of button 
+    width: 100px; width of button 
+    below is what is better to use so that words dont overflow
+    */
+    padding-top: 9px;
+    padding-bottom: 9px;
+    padding-left: 15px;
+    padding-right: 15px;
+    /* 
+    css box model - padding - border- margin
+    */
+    border-radius: 2px;/*makes the button rounded */
+    cursor: pointer;/*makes the cursor a pointer when u hover over the button */
+    transition: opacity .15s;/*makes the fade in smoothly */
+    vertical-align: top;/*aligns the button to the top of the text */
+}
+  
+  .subscribe-button:hover {/* */
+    opacity:.5; /* only goes from 0 to 1 | used for transparancy */
+    background-color: green;/* */
+  }
+  
+  .subscribe-button:active {/* */
+    opacity: .3;/* */
+    background-color:blue;/* */
+  }
+  
+  .join-button {
+    background-color: white;
+    border-color: rgb(6, 95, 212);
+    border-style: solid;
+    border-width: 1px;
+    color: rgb(6, 95, 212);
+    border-radius: 2px;
+    cursor: pointer;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    padding-left: 16px;
+    padding-right: 16px;
+    transition: background-color 0.15s, color 0.15s;/* add multi to fade trans smoothly */
+  }
+  
+  .join-button:hover {/*when u go over the button */
+    background-color: rgb(6, 95, 212);
+    color: white;
+  }
+  
+  .join-button:active {/* when u click the button */
+    opacity: 0.7;
+  }
+  
+  .tweet-button {
+    background-color: rgb(29, 155, 240);
+    color: white;
+    border: none;
+    height: 36px;
+    width: 74px;
+    border-radius: 8px;
+    border-radius: 18px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: box-shadow 0.15s;
+    vertical-align: top;
+  }
+  
+  .tweet-button:hover {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);/*right, down, blur, rgba = makes fade */
+  }

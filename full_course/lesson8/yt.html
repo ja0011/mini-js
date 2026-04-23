@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>YouTube</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      p {
+        font-family: Roboto, Arial, sans-serif;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .thumbnail{
+        /*display: block;  block element = takes up the entire width of the parent element | inline element = takes up only the width of the content 
+        width: 300px;*/
+        width: 100%;
+      }
+        /* 
+        height: 300px;
+        object-fit: contain; keeps the aspect ratio of the image | cover = fills the entire area
+        object-position: left; position of the image inside the area | right = right side of the area
+        border-width: 2px;width of the border
+        border-style: solid;style of the border
+        border-color: red;color of the border
+        
+      } */
+      .search-bar{
+        display: block;
+        /*
+        font-size: 20px;
+        margin-left: 12px;
+        */
+      }
+      /*
+      .video-author,
+      .video-title{
+      display: inline-block;
+      }
+      
+      .video-title{
+        width: 300px;
+      }
+
+      .div-example{
+        display: inline-block;
+        width: 300px;
+        vertical-align: top;
+        margin-right:15px
+      }*/
+      /*
+      .video-info-grid{
+        display: grid;
+        grid-template-columns: 50px 1fr;
+      }
+      .channel-picture{
+        display: inline-block;
+        width: 50px;
+        vertical-align: top;
+      }*/
+      .video-title{
+        margin-top: 0;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        margin-bottom: 10px;
+      }
+      .video-info{
+        display: inline-block;
+        width: 200px;
+      }
+      .profile-picture{
+        width: 40px;
+        border-radius: 50px;
+      }
+      .thumbnail-row{
+        margin-bottom: 12px;
+      }
+      .video-author,
+      .video-stats{
+        font-size: 12px;
+        color: rgb(96, 96, 96);
+      }
+      .video-author{
+        margin-bottom: 4px;
+
+      }
+      .video-grid{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 15px;
+        row-gap: 40px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <input class="search-bar"type="text" placeholder="search" > <!--"checkbox" makes checkbox | placeholder = text in the input field -->
+
+    <div class="video-grid">
+  
+    <div class ="div-example">
+      <div class="thumbnail-row">
+        <img class="thumbnail"src="thumbnails/thumbnail-1.webp" alt="Video thumbnail">
+      </div>
+
+      <div class="video-info-grid">
+        <div class="channel-picture">
+          <img class="profile-picture" src="thumbnails/channel-1.jpeg">
+        </div>
+        <div class="video-info">
+          <p class="video-title">
+            Talking Tech and AI with Google CEO Sundar Pichai!</p> <!-- block element = takes up the entire width of the parent element | inline element = takes up only the width of the content -->
+          <p class="video-author">Marques Brownlee &#10003;</p>
+          <p class="video-stats">3.4M views &#183; 6 months ago</p> 
+        </div>  
+      </div><!-- can be used to group elements together aka a container-->
+    </div><!-- end -->
+
+    <div class ="div-example"> <!-- start -->
+      <div class="thumbnail-row">
+        <img class="thumbnail"src="thumbnails/thumbnail-2.webp" alt="Video thumbnail">
+      </div>
+
+      <div class="video-info-grid">
+        <div class="channel-picture">
+          <img class="profile-picture" src="thumbnails/channel-2.jpeg">
+        </div>
+        <div class="video-info">
+          <p class="video-title">
+            Talking Tech and AI with Google CEO Sundar Pichai!</p> <!-- block element = takes up the entire width of the parent element | inline element = takes up only the width of the content -->
+          <p class="video-author">Markiplier</p>
+          <p class="video-stats">19M views &#183;  4 years ago</p> 
+        </div>  
+      </div><!-- can be used to group elements together aka a container-->
+    </div><!-- can be used to group elements together aka a container-->
+
+
+    <div class ="div-example"> <!-- start -->
+      <div class="thumbnail-row">
+        <img class="thumbnail"src="thumbnails/thumbnail-2.webp" alt="Video thumbnail">
+      </div>
+
+      <div class="video-info-grid">
+        <div class="channel-picture">
+          <img class="profile-picture" src="thumbnails/channel-2.jpeg">
+        </div>
+        <div class="video-info">
+          <p class="video-title">
+            Talking Tech and AI with Google CEO Sundar Pichai!</p> <!-- block element = takes up the entire width of the parent element | inline element = takes up only the width of the content -->
+          <p class="video-author">Markiplier</p>
+          <p class="video-stats">19M views &#183;  4 years ago</p> 
+        </div>  
+      </div><!-- can be used to group elements together aka a container-->
+    </div><!-- can be used to group elements together aka a container-->
+
+
+    <div class ="div-example"> <!-- start -->
+      <div class="thumbnail-row">
+        <img class="thumbnail"src="thumbnails/thumbnail-2.webp" alt="Video thumbnail">
+      </div>
+
+      <div class="video-info-grid">
+        <div class="channel-picture">
+          <img class="profile-picture" src="thumbnails/channel-2.jpeg">
+        </div>
+        <div class="video-info">
+          <p class="video-title">
+            Talking Tech and AI with Google CEO Sundar Pichai!</p> <!-- block element = takes up the entire width of the parent element | inline element = takes up only the width of the content -->
+          <p class="video-author">Markiplier</p>
+          <p class="video-stats">19M views &#183;  4 years ago</p> 
+        </div>  
+      </div><!-- can be used to group elements together aka a container-->
+    </div><!-- can be used to group elements together aka a container-->
+
+
+    <div class ="div-example"> <!-- start -->
+      <div class="thumbnail-row">
+        <img class="thumbnail"src="thumbnails/thumbnail-2.webp" alt="Video thumbnail">
+      </div>
+
+      <div class="video-info-grid">
+        <div class="channel-picture">
+          <img class="profile-picture" src="thumbnails/channel-2.jpeg">
+        </div>
+        <div class="video-info">
+          <p class="video-title">
+            Talking Tech and AI with Google CEO Sundar Pichai!</p> <!-- block element = takes up the entire width of the parent element | inline element = takes up only the width of the content -->
+          <p class="video-author">Markiplier</p>
+          <p class="video-stats">19M views &#183;  4 years ago</p> 
+        </div>  
+      </div><!-- can be used to group elements together aka a container-->
+    </div><!-- can be used to group elements together aka a container-->
+
+
+    <div class ="div-example"> <!-- start -->
+      <div class="thumbnail-row">
+        <img class="thumbnail"src="thumbnails/thumbnail-2.webp" alt="Video thumbnail">
+      </div>
+
+      <div class="video-info-grid">
+        <div class="channel-picture">
+          <img class="profile-picture" src="thumbnails/channel-2.jpeg">
+        </div>
+        <div class="video-info">
+          <p class="video-title">
+            Talking Tech and AI with Google CEO Sundar Pichai!</p> <!-- block element = takes up the entire width of the parent element | inline element = takes up only the width of the content -->
+          <p class="video-author">Markiplier</p>
+          <p class="video-stats">19M views &#183;  4 years ago</p> 
+        </div>  
+      </div><!-- can be used to group elements together aka a container-->
+    </div><!-- can be used to group elements together aka a container-->
+
+    </div>
+
+  </body>
+
+</html>
