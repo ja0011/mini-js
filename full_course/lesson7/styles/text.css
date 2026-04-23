@@ -1,0 +1,62 @@
+p {
+    /*universal selector unless overriden by a .class or something*/
+    font-family: Roboto;/*all p tags will have this font*/
+    margin-bottom: 0px;/*will get override by the margin-bottom in the specific p tags*/
+    margin-top: 0;
+  }
+  
+  .video-stats {
+    font-size: 14px;
+    color: rgb(96, 96, 96);
+    margin-bottom: 20px;/*overides p margin */
+  }
+  
+  .video-title {
+    font-weight: bold;
+    font-size: 18px;
+    /*text-align: center; - center the text inside the div only not outside*/
+    width: 280px;
+    line-height: 24px;/*space between lines of text*/
+    /*margin-top:0px; - comes from p at top*/
+    margin-bottom: 5px;/*oversides p bc it has a dif value*/
+  }
+  
+  .video-author {
+    font-size: 14px;
+    color: rgb(96, 96, 96);
+    margin-bottom: 20px;
+  }
+  
+  .video-description {
+    font-size: 14px;
+    color: rgb(96, 96, 96);
+    width: 280px;
+    line-height: 22px;/*space between lines of text*/
+    margin-bottom: 100px;
+  }
+  
+  .apple-text {
+    margin-bottom: 50px;
+    font-size: 14px;
+    background-color: rgb(227, 65, 64);
+    color: white;
+    text-align: center;
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+  
+  .span-example {
+    color: red;
+  }
+  
+  .span-example:hover {
+    text-decoration: underline;
+  }
+  
+  .shop-link {
+    cursor: pointer;
+  }
+  
+  .shop-link:hover {
+    text-decoration: underline;
+  }
